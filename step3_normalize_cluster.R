@@ -41,7 +41,6 @@ metadata <- scTet_integrate@meta.data
 metadata$type <- substr(metadata$orig.ident,start = 1L,stop = 2L)
 metadata$annotation <- "Undefined"
 metadata$annotation[which(metadata$seurat_clusters %in% c(0,3))] <- "Nerual Progenitor cell"
-#metadata$annotation[which(metadata$seurat_clusters %in% c(3))] <- "proliferative region"
 metadata$annotation[which(metadata$seurat_clusters %in% c(1,2,6,9))] <- "Differentiating neuron"
 metadata$annotation[which(metadata$seurat_clusters %in% c(5))] <- "Eye Photorecepter cell"
 metadata$annotation[which(metadata$seurat_clusters %in% c(4,7,14))] <- "Ectomesenchymal"
