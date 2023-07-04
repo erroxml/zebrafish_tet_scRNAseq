@@ -54,14 +54,3 @@ metadata$annotation[which(metadata$seurat_clusters %in% c(18))] <- "Iridophore"
 metadata$annotation[which(metadata$seurat_clusters %in% c(16,19))] <- "Phagocytes"
 scTet_integrate@meta.data <- metadata
 save(scTet_integrate,file = "scTet_integrate.rda")
-
-annotation_markers <- data.frame()
-for(i in 1:length(unique(metadata$annotation))){
-  tmp_markers <- FindMarkers(object = scTet_integrate, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.2,group.by="annotation",ident.1=unique(metadata$annotation)[i])
-  tmp_markers$cluster <- unique(metadata$annotation)[i]
-  annotation_markers <- rbind(annotation_markers,tmp_markers)
-}
-annotation_markers$gene <- rownames(annotation_markers)
-write.csv(annotation_markers,file = "annotation_markers.csv")
-top20 <- annotation_markers %>% group_by(cluster) %>% top_n(n = 20, wt = avg_logFC)
-DoHeatmap(scTet_integrate, features = top20$gene) + NoLegend()
